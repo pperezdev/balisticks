@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+    db:
+        container_name: database
+        image: postgres
+        restart: always
+
+    adminer:
+        image: adminer
+        restart: always
+        ports:
+        - 8080:8080
+
+    web:
+        build: .
+        container_name: webapp
+        ports:
+            - "5000:5000"
+        command: ["flask", "run", "--host=0.0.0.0"]
+        volumes:
+            - ./:/tmp
+
+    api:
+        build: .
+        container_name: webapi
+        ports:
+           - "5001:5001"
+        command: ["flask", "run", "--host=0.0.0.0"]
+        volumes:
+            - ./:/tmp
