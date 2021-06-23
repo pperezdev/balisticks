@@ -10,22 +10,22 @@ services:
         image: adminer
         restart: always
         ports:
-        - 8080:8080
+          - 8080:8080
 
     web:
         build: ./webapp
         container_name: webapp
         ports:
-            - "5000:5000"
+          - "5000:5000"
         command: ["flask", "run", "--host=0.0.0.0"]
         volumes:
-            - ./webapp:/tmp
+          - ./webapp:/tmp
 
     api:
         build: ./webapi
         container_name: webapi
         ports:
-           - "5001:5001"
+          - "5001:5001"
         command: ["flask", "run", "--host=0.0.0.0"]
         volumes:
-            - ./webapi:/tmp
+          - ./webapi:/tmp
