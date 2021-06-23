@@ -5,27 +5,28 @@ services:
         container_name: database
         image: postgres
         restart: always
+        environment:
+          POSTGRES_PASSWORD: admin
 
     adminer:
         image: adminer
         restart: always
         ports:
-          - 8080:8080
+          - 8082:8082
 
     web:
-        build: ./webapp
-        container_name: webapp
+        build: .
         ports:
           - "5000:5000"
-        command: ["flask", "run", "--host=0.0.0.0"]
+        command: ["flask", "run", "--host=0.0.0.0", "-p 5000"]
         volumes:
           - ./webapp:/tmp
 
     api:
-        build: ./webapi
+        build: .
         container_name: webapi
         ports:
           - "5001:5001"
-        command: ["flask", "run", "--host=0.0.0.0"]
+        command: ["flask", "run", "--host=0.0.0.0", "-p 5001"]
         volumes:
           - ./webapi:/tmp
