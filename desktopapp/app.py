@@ -26,8 +26,7 @@ class SampleApp(tk.Tk):
             frame.grid(row=0, column=0, sticky="nsew")
 
         self.show_frame("ConnexionPage")
-        self.defineGeometry(600, 600, 600, 600  )
-
+        self.defineGeometry(600, 600, 600, 600)
 
     def show_frame(self, page_name):
         '''Show a frame for the given page name'''
@@ -47,7 +46,6 @@ class SampleApp(tk.Tk):
 
     def setTitle(self, title):
         self.title(f"{APP_NAME} - {title[:-4]}")
-
 
 
 if __name__ == "__main__":
