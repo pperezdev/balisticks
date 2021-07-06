@@ -1,18 +1,38 @@
 import tkinter as tk
-from tkhtmlview import HTMLLabel
-import config
+from tkinter import font as tkfont
+from desktopapp.views import connexion, home, inscription
+from desktopapp.config import *
 
-class Application(tk.Frame):
-    def __init__(self, master=None):
-        super().__init__(master)
-        self.master = master
-        self.pack()
-        self.setTitle("home")
 
-        self.bind("<Configure>", self.resize)
+class SampleApp(tk.Tk):
 
+    def __init__(self, *args, **kwargs):
+        tk.Tk.__init__(self, *args, **kwargs)
+
+        self.title_font = tkfont.Font(family='Helvetica', size=18, weight="bold", slant="italic")
+
+        container = tk.Frame(self)
+        container.pack(side="top", fill="both", expand=True)
+        container.grid_rowconfigure(0, weight=1)
+        container.grid_columnconfigure(0, weight=1)
+
+        self.frames = {}
+        for F in (connexion.ConnexionPage, home.HomePage, inscription.InscirptionPage):
+            page_name = F.__name__
+            frame = F(parent=container, controller=self)
+            self.frames[page_name] = frame
+
+            frame.grid(row=0, column=0, sticky="nsew")
+
+        self.show_frame("ConnexionPage")
         self.defineGeometry(400, 400, 400, 400)
-        self.create_widgets()
+
+
+    def show_frame(self, page_name):
+        '''Show a frame for the given page name'''
+        frame = self.frames[page_name]
+        frame.tkraise()
+        self.setTitle(page_name)
 
     def defineGeometry(self, width, height, width_max, height_max):
         self.width = width
@@ -20,32 +40,15 @@ class Application(tk.Frame):
         self.width_max = width_max
         self.height_max = height_max
 
-        self.master.geometry(f"{self.width}x{self.height}")
-        self.master.minsize(self.width, self.height)
-        self.master.maxsize(self.width_max, self.height_max)
+        self.geometry(f"{self.width}x{self.height}")
+        self.minsize(self.width, self.height)
+        self.maxsize(self.width_max, self.height_max)
 
     def setTitle(self, title):
-        root.title(f"{config.APP_NAME} - {title}")
+        self.title(f"{APP_NAME} - {title[:-4]}")
 
-    def create_widgets(self):
-        self.frame_left = tk.Frame(self, width=self.width*0.25, height=self.height, bg="red")
-        self.frame_left.grid(row=0, column=0)
 
-        self.frame_center = tk.Frame(self, width=self.width*0.75, height=self.height, bg="blue")
-        self.frame_center.grid(row=0, column=1)
 
-        #self.hi_there = tk.Button(self)
-        #self.hi_there["text"] = "Hello World\n(click me)"
-        #self.hi_there["command"] = self.say_hi
-        #self.hi_there.pack(side="top")
-
-        self.quit = tk.Button(self, text="QUIT", fg="red",
-                              command=self.master.destroy)
-
-    def resize(self, event):
-        ...
-
-if __name__ == '__main__':
-    root = tk.Tk()
-    master = Application(master=root)
-    master.mainloop()
+if __name__ == "__main__":
+    app = SampleApp()
+    app.mainloop()
