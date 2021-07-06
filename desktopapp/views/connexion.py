@@ -11,8 +11,8 @@ class ConnexionPage(tk.Frame):
                             command=self.connexion)
         button2 = tk.Button(self, text="Inscription",
                             command=self.inscription)
-        button1.pack()
-        button2.pack()
+        button1.grid()
+        button2.grid()
 
     def connexion(self):
         self.controller.show_frame("HomePage")

@@ -12,9 +12,10 @@ class SampleApp(tk.Tk):
         self.title_font = tkfont.Font(family='Helvetica', size=18, weight="bold", slant="italic")
 
         container = tk.Frame(self)
-        container.pack(side="top", fill="both", expand=True)
-        container.grid_rowconfigure(0, weight=1)
-        container.grid_columnconfigure(0, weight=1)
+        container.grid(row=0, column=0)
+        self.grid_rowconfigure(0, weight=1)
+        self.grid_columnconfigure(0, weight=1)
+
 
         self.frames = {}
         for F in (connexion.ConnexionPage, home.HomePage, inscription.InscirptionPage):
@@ -25,7 +26,7 @@ class SampleApp(tk.Tk):
             frame.grid(row=0, column=0, sticky="nsew")
 
         self.show_frame("ConnexionPage")
-        self.defineGeometry(400, 400, 400, 400)
+        self.defineGeometry(600, 600, 600, 600  )
 
 
     def show_frame(self, page_name):

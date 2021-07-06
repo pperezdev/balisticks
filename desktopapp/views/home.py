@@ -6,7 +6,9 @@ class HomePage(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.controller = controller
         label = tk.Label(self, text="Bienvenue sur la page", font=controller.title_font)
-        label.pack(side="top", fill="x", pady=10)
+        label.grid(row=2, column=0)
+        label.grid_rowconfigure(1, weight=1)
+        label.grid_columnconfigure(1, weight=1)
         button = tk.Button(self, text="Dectionner",
                            command=lambda: controller.show_frame("ConnexionPage"))
-        button.pack()
+        button.grid()
