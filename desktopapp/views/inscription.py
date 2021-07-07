@@ -1,17 +1,19 @@
+import re
 import tkinter as tk
+from tkinter import messagebox
+
 
 class InscirptionPage(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
-        label = tk.Label(self, text="This is page 1", font=controller.title_font).grid(row=0,column=0)
-
+        label = tk.Label(self, text="This is page 1", font=controller.title_font).grid(row=0, column=0)
 
         button = tk.Button(self, text="Go to the start page",
                            command=lambda: controller.show_frame("ConnexionPage"))
         button.grid(row=11, column=0, sticky='w')
-
+        self.entry_values = []
         self.forms()
 
     def forms(self):
@@ -20,14 +22,13 @@ class InscirptionPage(tk.Frame):
         #               Set value by default
         # --------------------------------------------------
         var = tk.StringVar()
-        var.set('male')
 
         # --------------------------------------------------
         #               Creation of a list based on a file
         # --------------------------------------------------
         countries = []  # creation of the list of countries
         variable = tk.StringVar()
-        fileCountries = open('data/countries.txt','r')
+        fileCountries = open('data/countries.txt', 'r')
         for country in fileCountries:
             country = country.rstrip("\n")
             countries.append(country[3:])
@@ -114,7 +115,7 @@ class InscirptionPage(tk.Frame):
             text='Male',
             bg='#CCCCCC',
             variable=var,
-            value='male',
+            value='Male',
             font=('Times', 10),
 
         )
@@ -124,7 +125,7 @@ class InscirptionPage(tk.Frame):
             text='Female',
             bg='#CCCCCC',
             variable=var,
-            value='female',
+            value='Female',
             font=('Times', 10),
 
         )
@@ -153,7 +154,7 @@ class InscirptionPage(tk.Frame):
             text='Register',
             relief=tk.SOLID,
             cursor='hand2',
-            command=None
+            command=self.mother
         )
 
         # --------------------------------------------------
@@ -170,6 +171,59 @@ class InscirptionPage(tk.Frame):
         register_btn.grid(row=9, column=1, pady=10, padx=20)
         self.grid()
 
+        #var.set('Male')
+        print(var.get())
+
         gender_frame.grid(row=5, column=1, pady=10, padx=20)
         male_rb.pack(expand=True, side=tk.LEFT)
         female_rb.pack(expand=True, side=tk.LEFT)
+
+        self.entry_values.extend([register_first_name, register_last_name, register_email, register_mobile,var,
+                                  register_pwd, pwd_again])
+
+    def mother(self):
+        if self.validation():
+            messagebox.showinfo("", "All it's ok")
+        else:
+            messagebox.showerror('', 'Problem')
+
+    def validation(self):
+        """
+        Regarde si les champs sont vides ou pas
+        Si vide sort une erreur sinon insert dans la base de donnes
+        :return:
+        """
+
+        tab = []
+        for entrie in self.entry_values:
+            if not entrie.get():  # si vide
+                messagebox.showerror("Error", "is empty")
+                return False
+            tab.append(entrie.get())
+        print("Je suis le tab",tab)
+        if tab[5] != tab[6]:
+            messagebox.showerror("Error password", "The password is not the same")
+            return False
+
+        self.check_email(tab[2])
+        self.check_number(tab[3])
+
+        return True
+
+    def check_email(self, email):
+        regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+        if not re.match(regex, email):
+            messagebox.showerror("Error", "Adress e-mail is not correct ")
+            return False
+
+    def check_number(self, phone_number):
+        pattern = re.compile(r'^[0-9]{1,10}$')
+        if not re.match(pattern, phone_number):
+            messagebox.showerror("Error", "Phone number is not correct ")
+            return False
+
+    def insertion_database(self):
+        return
+
+    # fonction qui permet de vérifier l'insertion, une autre permettant d'ajouter dans la database
+    # et la dernière une fonction mère qui lance le tout

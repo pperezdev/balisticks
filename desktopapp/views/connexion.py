@@ -27,8 +27,15 @@ class ConnexionPage(tk.Frame):
 
 
     def create_widget(self):
-        login = tk.Entry(self).grid(row=6, column=1)
-        password = tk.Entry(self).grid(row=7, column=1, pady=10, padx=20)
+        loginText = tk.StringVar()
+        passwordText = tk.StringVar()
+
+        login = tk.Entry(self,textvariable = loginText).grid(row=6, column=1)
+        password = tk.Entry(self, textvariable = passwordText).grid(row=7, column=1, pady=10, padx=20)
+
+        loginText.set( "Login" )
+        passwordText.set( "Password" )
+
 
 
 
