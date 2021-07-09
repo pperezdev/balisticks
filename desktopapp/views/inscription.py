@@ -21,18 +21,18 @@ class InscirptionPage(tk.Frame):
         # --------------------------------------------------
         #               Set value by default
         # --------------------------------------------------
-        var = tk.StringVar()
+        varGender = tk.StringVar()
 
         # --------------------------------------------------
         #               Creation of a list based on a file
         # --------------------------------------------------
         countries = []  # creation of the list of countries
-        variable = tk.StringVar()
+        variableCountry = tk.StringVar()
         fileCountries = open('data/countries.txt', 'r')
         for country in fileCountries:
             country = country.rstrip("\n")
             countries.append(country[3:])
-        variable.set(countries[0])
+        variableCountry.set(countries[0])
 
         # --------------------------------------------------
         #               Create Label
@@ -114,7 +114,7 @@ class InscirptionPage(tk.Frame):
             gender_frame,
             text='Male',
             bg='#CCCCCC',
-            variable=var,
+            variable=varGender,
             value='Male',
             font=('Times', 10),
 
@@ -124,7 +124,7 @@ class InscirptionPage(tk.Frame):
             gender_frame,
             text='Female',
             bg='#CCCCCC',
-            variable=var,
+            variable=varGender,
             value='Female',
             font=('Times', 10),
 
@@ -132,7 +132,7 @@ class InscirptionPage(tk.Frame):
 
         register_country = tk.OptionMenu(
             self,
-            variable,
+            variableCountry,
             *countries
         )
 
@@ -171,15 +171,15 @@ class InscirptionPage(tk.Frame):
         register_btn.grid(row=9, column=1, pady=10, padx=20)
         self.grid()
 
-        #var.set('Male')
-        print(var.get())
+        # var.set('Male')
+        print(varGender.get())
 
         gender_frame.grid(row=5, column=1, pady=10, padx=20)
         male_rb.pack(expand=True, side=tk.LEFT)
         female_rb.pack(expand=True, side=tk.LEFT)
 
-        self.entry_values.extend([register_first_name, register_last_name, register_email, register_mobile,var,
-                                  register_pwd, pwd_again])
+        self.entry_values.extend([register_first_name, register_last_name, register_email, register_mobile, varGender,
+                                  variableCountry, register_pwd, pwd_again])
 
     def mother(self):
         if self.validation():
@@ -200,8 +200,8 @@ class InscirptionPage(tk.Frame):
                 messagebox.showerror("Error", "is empty")
                 return False
             tab.append(entrie.get())
-        print("Je suis le tab",tab)
-        if tab[5] != tab[6]:
+        print("Je suis le tab", tab)
+        if tab[6] != tab[7]:
             messagebox.showerror("Error password", "The password is not the same")
             return False
 
