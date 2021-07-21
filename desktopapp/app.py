@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import font as tkfont
-from desktopapp.views import connexion, home, inscription
-from desktopapp.config import *
+from views import connexion, home, inscription, organisation, task, project, createOrganisation
+from config import *
 
 
 class SampleApp(tk.Tk):
@@ -18,7 +18,9 @@ class SampleApp(tk.Tk):
 
 
         self.frames = {}
-        for F in (connexion.ConnexionPage, home.HomePage, inscription.InscirptionPage):
+        for F in (connexion.ConnexionPage, home.HomePage, inscription.InscirptionPage,
+                  organisation.OrganisationPage, project.ProjectPage, task.TaskPage,
+                  createOrganisation.CreateOrganisationPage):
             page_name = F.__name__
             frame = F(parent=container, controller=self)
             self.frames[page_name] = frame
