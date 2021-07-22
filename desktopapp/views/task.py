@@ -23,3 +23,7 @@ class TaskPage(tk.Frame):
     def create_widget(self):
         label = ttk.Label(self, text=f"Vos sticks", font=self.controller.title_font).grid(row=0, column=2, sticky='w')
         init_summary(self, ttk)
+
+        ttk.Button(self, text="nouveau sticks",
+                       command=lambda: self.controller.show_frame("CreateTaskPage")).grid(row=4, column=2,
+                                                                                         sticky='w')

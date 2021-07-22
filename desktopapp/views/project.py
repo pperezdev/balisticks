@@ -28,3 +28,6 @@ class ProjectPage(tk.Frame):
         for cnt, org in enumerate(self.organisations):
             ttk.Button(self, text=f"{org}",
                        command=lambda: self.controller.show_frame("TaskPage")).grid(row=cnt+1, column=2, sticky='w')
+
+        ttk.Button(self, text="nouveau projet",
+                   command=lambda: self.controller.show_frame("CreateProjectPage")).grid(row=cnt + 2, column=2, sticky='w')

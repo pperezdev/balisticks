@@ -8,6 +8,7 @@ class CreateOrganisationPage(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.controller = controller
         self.name = "Benjamin"
+        self.entry_values = []
         self.init_data()
         self.create_widget()
 
@@ -27,8 +28,39 @@ class CreateOrganisationPage(tk.Frame):
         label = ttk.Label(self, text=f"Creer votre organisation", font=self.controller.title_font).grid(row=0,
                                                                                                       column=2,
                                                                                                       sticky='w')
+        organisation_name_label = ttk.Label(self, text="Nom")
+        organisation_name_label.grid(row=3, column=2, sticky='w')
+
+        organisation_name_entry = tk.Entry(self)
+        organisation_name_entry.grid(row=4, column=2, sticky='w')
 
         ttk.Button(self, text="create",
-                   command=lambda: self.controller.show_frame("OrganisationPage")).grid(row=5, column=2, sticky='w')
+                   command=lambda: push(self)).grid(row=5, column=2, sticky='w')
+
         init_summary(self, ttk)
 
+        self.entry_values.extend([organisation_name_entry])
+
+    def validation(self):
+        """
+        Regarde si les champs sont vides ou pas
+        Si vide sort une erreur sinon insert dans la base de donnes
+        :return:
+        """
+
+        tab = []
+        for entrie in self.entry_values:
+            if not entrie.get():  # si vide
+                return False, "entry is empty"
+            tab.append(entrie.get())
+
+        print("Je suis le tab", tab)
+
+        self.controller.back.insert_organisation(tab)
+
+        return True, "Votre organisation est créer"
+
+def push(self):
+    m = self.controller.mother(self)
+    if(m):
+        self.controller.show_frame("OrganisationPage")
