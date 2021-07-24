@@ -27,10 +27,13 @@ CREATE TABLE public.USERS(
 -- Table: ORGANISATIONS
 ------------------------------------------------------------
 CREATE TABLE public.ORGANISATIONS(
-	id   SERIAL NOT NULL  ,
+	id                SERIAL NOT NULL  ,
+	name              VARCHAR (50) NOT NULL ,
+	picture           VARCHAR (10) NOT NULL ,
+	banner            VARCHAR (10) NOT NULL ,
+	creationdate      DATE  NOT NULL  ,
 	CONSTRAINT ORGANISATIONS_PK PRIMARY KEY (id)
 )WITHOUT OIDS;
-
 
 ------------------------------------------------------------
 -- Table: ORGANISATIONSUSERS

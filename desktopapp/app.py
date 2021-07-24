@@ -1,8 +1,9 @@
+import re
 import tkinter as tk
 from tkinter import font as tkfont
-from desktopapp.views import connexion, home, inscription
-from desktopapp.config import *
-
+from views import connexion, home, inscription, organisation, task, project, createOrganisation, createProject, createTask
+from config import *
+from services.back import back
 
 class SampleApp(tk.Tk):
 
@@ -15,10 +16,13 @@ class SampleApp(tk.Tk):
         container.grid(row=0, column=0)
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
-
+        self.back = back()
 
         self.frames = {}
-        for F in (connexion.ConnexionPage, home.HomePage, inscription.InscirptionPage):
+        for F in (connexion.ConnexionPage, home.HomePage, inscription.InscirptionPage,
+                  organisation.OrganisationPage, project.ProjectPage, task.TaskPage,
+                  createOrganisation.CreateOrganisationPage, createProject.CreateProjectPage,
+                  createTask.CreateTaskPage):
             page_name = F.__name__
             frame = F(parent=container, controller=self)
             self.frames[page_name] = frame
@@ -46,6 +50,36 @@ class SampleApp(tk.Tk):
 
     def setTitle(self, title):
         self.title(f"{APP_NAME} - {title[:-4]}")
+
+    def browseButton(self):
+        return tk.filedialog.askdirectory()
+
+    def mother(self, view):
+        valid, message = view.validation()
+        if valid:
+            tk.messagebox.showinfo("", message)
+            return True
+        else:
+            tk.messagebox.showerror('error', message)
+            return False
+
+    def check_email(self, email):
+        regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+        if not re.match(regex, email):
+            return False, "Adress e-mail is not correct "
+        return True, ""
+
+    def check_number(self, phone_number):
+        pattern = re.compile(r'^[0-9]{10}$')
+        if not re.match(pattern, phone_number):
+            return False, "Phone number is not correct "
+        return True, ""
+
+    def insertion_database(self):
+        return
+
+    # fonction qui permet de vérifier l'insertion, une autre permettant d'ajouter dans la database
+    # et la dernière une fonction mère qui lance le tout
 
 
 if __name__ == "__main__":

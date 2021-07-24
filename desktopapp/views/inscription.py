@@ -1,4 +1,3 @@
-import re
 import tkinter as tk
 from tkinter import messagebox
 
@@ -154,7 +153,7 @@ class InscirptionPage(tk.Frame):
             text='Register',
             relief=tk.SOLID,
             cursor='hand2',
-            command=self.mother
+            command= lambda: self.controller.mother(self)
         )
 
         # --------------------------------------------------
@@ -181,12 +180,6 @@ class InscirptionPage(tk.Frame):
         self.entry_values.extend([register_first_name, register_last_name, register_email, register_mobile, varGender,
                                   variableCountry, register_pwd, pwd_again])
 
-    def mother(self):
-        if self.validation():
-            messagebox.showinfo("", "All it's ok")
-        else:
-            messagebox.showerror('', 'Problem')
-
     def validation(self):
         """
         Regarde si les champs sont vides ou pas
@@ -197,33 +190,20 @@ class InscirptionPage(tk.Frame):
         tab = []
         for entrie in self.entry_values:
             if not entrie.get():  # si vide
-                messagebox.showerror("Error", "is empty")
-                return False
+                return False, "entry is empty"
             tab.append(entrie.get())
-        print("Je suis le tab", tab)
+
         if tab[6] != tab[7]:
-            messagebox.showerror("Error password", "The password is not the same")
-            return False
+            return False, "The password is not the same"
 
-        self.check_email(tab[2])
-        self.check_number(tab[3])
+        val, message = self.controller.check_email(tab[2])
+        if not val : return val, message
 
-        return True
+        val, message = self.controller.check_number(tab[3])
+        if not val: return val, message
 
-    def check_email(self, email):
-        regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
-        if not re.match(regex, email):
-            messagebox.showerror("Error", "Adress e-mail is not correct ")
-            return False
+        print("Je suis le tab", tab)
 
-    def check_number(self, phone_number):
-        pattern = re.compile(r'^[0-9]{1,10}$')
-        if not re.match(pattern, phone_number):
-            messagebox.showerror("Error", "Phone number is not correct ")
-            return False
+        self.controller.back.insert_users(tab)
 
-    def insertion_database(self):
-        return
-
-    # fonction qui permet de vérifier l'insertion, une autre permettant d'ajouter dans la database
-    # et la dernière une fonction mère qui lance le tout
+        return True, "Votre compte est créer"
