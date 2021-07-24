@@ -3,6 +3,7 @@ from sqlalchemy import ForeignKey
 import datetime
 from sqlalchemy.orm import relationship
 from dataclasses import dataclass
+from .dates import Dates
 
 from sqlalchemy.sql.sqltypes import DateTime
 
@@ -11,7 +12,7 @@ from app import Base
 
 @dataclass
 class Datetypes(Base):
-    __tablename__ = "DATETYPES"
+    __tablename__ = "datetypes"
 
     id: int
     libelle: str

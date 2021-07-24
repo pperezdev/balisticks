@@ -11,14 +11,13 @@ from app import Base
 
 @dataclass
 class Tags(Base):
-    __tablename__ = "TAGS"
+    __tablename__ = "tags"
 
     id: int
     name: str
-    id_TAGTYPE: int
-    id_PROPERTIES: int
+    id_tagtype: int
 
     id = Column(Integer, primary_key=True)
     name = Column(String(50), nullable=False)
 
-    id_TAGTYPE = Column(Integer, ForeignKey('TAGTYPE.id'))
+    id_tagtype = Column(Integer, ForeignKey('tagtype.id'))

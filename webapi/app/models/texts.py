@@ -11,7 +11,7 @@ from app import Base
 
 @dataclass
 class Texts(Base):
-    __tablename__ = "TEXTS"
+    __tablename__ = "texts"
 
     id: int
     content: str

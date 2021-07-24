@@ -8,13 +8,13 @@ from app import Base
 
 @dataclass
 class Taskproperties(Base):
-    __tablename__ = "TASKPROPERTIES"
+    __tablename__ = "tasksproperties"
 
     id: int
-    id_PROPERTIES:int
-    id_TASKS: int 
+    id_properties:int
+    id_tasks: int 
 
     id = Column(Integer, primary_key=True)
 
-    id_PROPERTIES = Column(Integer, ForeignKey('PROPERTIES.id'))
-    id_TASKS = Column(Integer, ForeignKey('TASK.id'))
+    id_properties = Column(Integer, ForeignKey('properties.id'))
+    id_tasks = Column(Integer, ForeignKey('tasks.id'))

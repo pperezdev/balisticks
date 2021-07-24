@@ -3,6 +3,12 @@ from sqlalchemy import ForeignKey
 import datetime
 from sqlalchemy.orm import relationship
 from dataclasses import dataclass
+from sqlalchemy.sql.functions import func
+
+from .projects import Projects
+from .projectsusers import Projectsusers
+from .organisationsusers import Organisationsusers
+from .userstasks import Userstasks
 
 from sqlalchemy.sql.sqltypes import DateTime
 
@@ -11,7 +17,7 @@ from app import Base
 
 @dataclass
 class Users(Base):
-    __tablename__ = "USERS"
+    __tablename__ = "users"
 
     id: int
     pseudo: str
@@ -45,6 +51,7 @@ class Users(Base):
 
     inscriptiondate = Column(
         DateTime(timezone=True),
+        server_default=func.now(),
         index=False,
         unique=False,
         nullable=False

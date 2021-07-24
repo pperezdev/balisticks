@@ -3,6 +3,7 @@ from sqlalchemy import ForeignKey
 import datetime
 from sqlalchemy.orm import relationship
 from dataclasses import dataclass
+from .userstasks import Userstasks
 
 from sqlalchemy.sql.sqltypes import DateTime
 
@@ -11,7 +12,7 @@ from app import Base
 
 @dataclass
 class Userstype(Base):
-    __tablename__ = "USERSTYPE"
+    __tablename__ = "userstype"
 
     id: int
     libelle: str

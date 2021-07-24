@@ -11,14 +11,14 @@ from app import Base
 
 @dataclass
 class Checks(Base):
-    __tablename__ = "CHECKS"
+    __tablename__ = "checks"
 
     id: int
     libelle: str
     isCheck: bool
-    id_CHECKSLISTS: int
+    id_checklists: int
 
     id = Column(Integer, primary_key=True)
     libelle = Column(String(50), nullable=False)
 
-    id_CHECKSLISTS = Column(Integer, ForeignKey('CHECKSLISTS.id'))
+    id_checklists = Column(Integer, ForeignKey('checklists.id'))

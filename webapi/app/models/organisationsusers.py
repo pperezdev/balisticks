@@ -11,13 +11,13 @@ from app import Base
 
 @dataclass
 class Organisationsusers(Base):
-    __tablename__ = "ORGANISATIONSUSERS"
+    __tablename__ = "organisationsusers"
 
     id: int
-    id_ORGANISATIONS: int
-    id_USERS: int
+    id_organisations: int
+    id_users: int
 
     id = Column(Integer, primary_key=True)
 
-    id_ORGANISATIONS = Column(Integer, ForeignKey('ORGANISATIONS.id'))
-    id_USERS = Column(Integer, ForeignKey('USERS.id'))
+    id_organisations = Column(Integer, ForeignKey('organisations.id'))
+    id_users = Column(Integer, ForeignKey('users.id'))

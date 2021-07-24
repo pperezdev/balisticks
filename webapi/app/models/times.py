@@ -11,7 +11,7 @@ from app import Base
 
 @dataclass
 class Times(Base):
-    __tablename__ = "TIMES"
+    __tablename__ = "times"
 
     id: int
     libelle: str

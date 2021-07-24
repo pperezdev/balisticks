@@ -11,15 +11,15 @@ from app import Base
 
 @dataclass
 class Userstasks(Base):
-    __tablename__ = "USERSTASKS"
+    __tablename__ = "userstasks"
 
     id: int
-    id_USERSTYPE: str
-    id_TASKS: datetime
-    id_USERS: int
+    id_userstype: str
+    id_tasks: datetime
+    id_users: int
 
     id = Column(Integer, primary_key=True)
 
-    id_USERSTYPE = Column(Integer, ForeignKey('USERSTYPE.id'))
-    id_TASKS = Column(Integer, ForeignKey('TASK.id'))
-    id_USERS = Column(Integer, ForeignKey('USERS.id'))
+    id_userstype = Column(Integer, ForeignKey('userstype.id'))
+    id_tasks = Column(Integer, ForeignKey('tasks.id'))
+    id_users = Column(Integer, ForeignKey('users.id'))

@@ -3,6 +3,10 @@ from sqlalchemy import ForeignKey
 import datetime
 from sqlalchemy.orm import relationship
 from dataclasses import dataclass
+from sqlalchemy.sql.functions import func
+
+from .projects import Projects
+from .organisationsusers import Organisationsusers
 
 from sqlalchemy.sql.sqltypes import DateTime
 
@@ -11,7 +15,7 @@ from app import Base
 
 @dataclass
 class Organisations(Base):
-    __tablename__ = "ORGANISATIONS"
+    __tablename__ = "organisations"
 
     id: int
     name: str
@@ -26,6 +30,7 @@ class Organisations(Base):
 
     creationdate = Column(
         DateTime(timezone=True),
+        server_default=func.now(),
         index=False,
         unique=False,
         nullable=False
