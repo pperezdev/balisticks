@@ -8,14 +8,15 @@ class Config:
     ##### FLASK #####
     PORT_SQL = 8082
     PORT_API = 5001
-    HOST = "127.0.0.1"
+    HOST = "localhost"
 
     ##### DATABASE #####
     DB_USERNAME = "admin"
     DB_PASSWORD = "admin"
-    DB_HOST = ""
-    DB_PORT = ""
-    DB_NAME = ""
+    DB_HOST = "localhost"
+    DB_PORT = "5432"
+    DB_NAME = "balisticks"
+    # WEBAPI_URI = "postgresql+psycopg2://admin:admin@localhost:5432/balisticks"
     WEBAPI_URI = "postgresql+psycopg2://{0}:{1}@{2}:{3}/{4}".format(DB_USERNAME,DB_PASSWORD,DB_HOST,DB_PORT,DB_NAME,DB_USERNAME)
 
 
