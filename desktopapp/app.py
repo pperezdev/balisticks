@@ -4,12 +4,25 @@ from tkinter import font as tkfont
 from views import connexion, home, inscription, organisation, task, project, createOrganisation, createProject, createTask
 from config import *
 from services.back import back
+import datetime
 
 class SampleApp(tk.Tk):
 
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
-
+        self.user = {
+            "id": 0,
+            "pseudo": "",
+            "name": "",
+            "surname": "",
+            "mail": "",
+            "phone": "",
+            "password": "",
+            "birthday": "2021-07-25 18:49:28.055818",
+            "picture": "nothing",
+            "banner": "nothing",
+            "inscriptiondate": datetime.datetime.now()
+        }
         self.title_font = tkfont.Font(family='Helvetica', size=18, weight="bold", slant="italic")
 
         container = tk.Frame(self)

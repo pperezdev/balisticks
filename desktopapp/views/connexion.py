@@ -1,5 +1,5 @@
 import tkinter as tk
-
+import datetime
 
 class ConnexionPage(tk.Frame):
 
@@ -20,6 +20,19 @@ class ConnexionPage(tk.Frame):
         self.create_widget()
 
     def connexion(self):
+        self.controller.user = {
+            "id": 20,
+            "pseudo": "",
+            "name": "Benjamin",
+            "surname": "",
+            "mail": "",
+            "phone": "",
+            "password": "",
+            "birthday": "2021-07-25 18:49:28.055818",
+            "picture": "nothing",
+            "banner": "nothing",
+            "inscriptiondate": datetime.datetime.now()
+        }
         self.controller.show_frame("HomePage")
 
     def inscription(self):

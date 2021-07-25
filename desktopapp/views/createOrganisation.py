@@ -7,7 +7,6 @@ class CreateOrganisationPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
-        self.name = "Benjamin"
         self.entry_values = []
         self.init_data()
         self.create_widget()

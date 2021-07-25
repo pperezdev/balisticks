@@ -7,17 +7,17 @@ class OrganisationPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
-        self.name = "Benjamin"
         self.init_data()
         self.create_widget()
 
     def init_data(self):
         self.organisations = []
         try:
-            self.organisations.extend(["A","B","C"])
-            #setup API
+            data = self.controller.back.get_data("organisations")
+            self.organisations.extend(data)
         except:
-            ttk.showerror.showwarning("API", "Error 200")
+            # tk.messagebox.showwarning("API", "Error 200")
+            ...
 
     def create_widget(self):
         label = ttk.Label(self, text=f"Vos organisations", font=self.controller.title_font).grid(row=0,
