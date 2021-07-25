@@ -21,6 +21,6 @@ class Workspaces(Base):
     id = Column(Integer, primary_key=True)
     libelle = Column(String(50), nullable=False)
 
-    task = relationship("TASK")
+    # task = relationship("Task")
 
     id_projects = Column(Integer, ForeignKey('projects.id'))

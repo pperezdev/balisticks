@@ -22,9 +22,9 @@ class Projects(Base):
 
     id = Column(Integer, primary_key=True)
     libelle = Column(String(50), nullable=False)
-    description = Column(String(50), nullable=False)
-    picture = Column(String(50), nullable=False)
-    banner = Column(String(50), nullable=False)
+    description = Column(String(50), nullable=True)
+    picture = Column(String(50), nullable=True)
+    banner = Column(String(50), nullable=True)
     
     id_organisations = Column(Integer, ForeignKey('organisations.id'))
     id_users = Column(Integer, ForeignKey('users.id'))

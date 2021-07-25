@@ -1,11 +1,9 @@
-# from webapi.app.models.projects import Projects
 from sqlalchemy import create_engine, engine
 from sqlalchemy.orm import Session, session
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.sql.expression import desc
-from sqlalchemy.sql.functions import user
 
-from app.models import projects
+from app.models import tasks
 from config import *
 from app import Base
 
@@ -13,17 +11,15 @@ engine = create_engine(Config.WEBAPI_URI)
 Session = sessionmaker(bind=engine)
 session = Session()
 
-class ProjectOperation():
+class TaskOperation():
 
     def create(arr):
-        
-        object = projects.Projects(
+
+        object = tasks.Tasks(
             libelle = arr["libelle"],
-            description = arr["description"],
-            picture = arr["picture"],
-            banner = arr["banner"],
-            id_organisations = arr["organisation"],
-            id_users = arr["user"]    
+            createddate = arr["createddate"],
+            id_workspaces = arr["workspace"],
+            id_projects = arr["project"]
         )
         
         session.add(object)
@@ -31,5 +27,5 @@ class ProjectOperation():
         Base.metadata.clear()
 
     def select(data):
-        result = session.query(projects.Projects).filter_by(id=data).all()
+        result = session.query(tasks.Tasks).filter_by(id=data).all()
         return result

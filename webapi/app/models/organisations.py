@@ -25,8 +25,8 @@ class Organisations(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String(50), nullable=False)
-    picture = Column(String(10), nullable=False)
-    banner = Column(String(10), nullable=False)
+    picture = Column(String(10), nullable=True)
+    banner = Column(String(10), nullable=True)
 
     creationdate = Column(
         DateTime(timezone=True),

@@ -5,8 +5,6 @@ from sqlalchemy.orm import relationship
 from dataclasses import dataclass
 from sqlalchemy.sql.functions import func
 
-from .userstasks import Userstasks
-from .tasksproperties import Taskproperties
 from sqlalchemy.sql.sqltypes import DateTime
 from .userstasks import Userstasks
 from .tasksproperties import Taskproperties
@@ -19,14 +17,14 @@ class Tasks(Base):
 
     id: int
     libelle: str
-    create_data: datetime
+    createddate: datetime
     id_workspaces: int
     id_projects: int
 
     id = Column(Integer, primary_key=True)
     libelle = Column(String(50), nullable=False)
 
-    create_data = Column(
+    createddate = Column(
         DateTime(timezone=True),
         server_default=func.now(),
         index=False,
@@ -34,7 +32,7 @@ class Tasks(Base):
         nullable=False
     )
 
-    id_workspaces = Column(Integer, ForeignKey('workspaces.id'))
+    id_workspaces = Column(Integer, ForeignKey('workspaces.id'), nullable=True)
     id_projects = Column(Integer, ForeignKey('projects.id'))
 
     usertask = relationship("Userstasks")
